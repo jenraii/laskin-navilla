@@ -1,32 +1,17 @@
-import { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Calculator from './components/Calculator';
+import History from './components/History';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-
-  const [message, setMessage] = useState('');
-
-  const showAlert = () => {
-    Alert.alert('Hello', 'Syötit tekstin: ' + message);
-  }
-
-  return (
-    <View style={styles.container}>
-      <TextInput 
-      placeholder='Syötä teksti'
-      onChangeText={text => setMessage(text)}
-      />
-      <Button title="Press" onPress={showAlert} color="green" />
-      <StatusBar style="auto" />
-    </View>
+  return(
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Calculator'>
+        <Stack.Screen name="Calculator" component={Calculator}/>
+        <Stack.Screen name="History" component={History}/>
+      </Stack.Navigator>    
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
